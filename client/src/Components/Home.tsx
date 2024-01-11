@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useAxiosPrivate from '../Hooks/useAxiosPrivate';
 import { useAuth } from '../Hooks/useAuth';
+// import axios from '../Api/axios';
 
 const Home = () => {
   const axios = useAxiosPrivate();

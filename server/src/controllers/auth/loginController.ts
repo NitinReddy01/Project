@@ -14,7 +14,8 @@ const loginController= async (req:Request,res:Response)=>{
         return res.status(400).send({message:"Username or password missing"});
     }
     const user= await User.findOne({email});
-    if(!user) return res.sendStatus(401);
+    if(!user) return res.status(401).send({message:`No User found with ${email}`});
+    if(!user.isVerified) return res.status(403).send({message:"Email is not verified"})
     const match= await bcrypt.compare(password,user.password);
     if(match){
         const accessToken=jwt.sign(
@@ -31,7 +32,7 @@ const loginController= async (req:Request,res:Response)=>{
         res.send({accessToken,username:user.username});
     }
     else{
-        res.sendStatus(401);
+        res.status(401).send({message:"Incorrect Password"});
     }
 }
 export default loginController;

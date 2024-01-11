@@ -93,7 +93,7 @@ const Register = () => {
           </div>
           <div className="text-center mt-8">
             <input
-              className="border border-black rounded-sm outline-green font-serif"
+              className="h-8 border border-black rounded-sm outline-green font-serif"
               value={user.username}
               name="username"
               onChange={handleChange}
@@ -104,7 +104,7 @@ const Register = () => {
           </div>
           <div className="text-center mt-4">
             <input
-              className="border border-black rounded-sm outline-green font-serif"
+              className="h-8 border border-black rounded-sm outline-green font-serif"
               value={user.email}
               name="email"
               onChange={handleChange}
@@ -116,7 +116,7 @@ const Register = () => {
           <div className="text-center mt-4">
             <div style={{ position: "relative", display: "inline-block" }}>
               <input
-                className="border border-black rounded-sm outline-green font-serif"
+                className="h-8 border border-black rounded-sm outline-green font-serif"
                 value={user.password}
                 name="password"
                 onChange={handleChange}

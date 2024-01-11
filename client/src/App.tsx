@@ -4,6 +4,7 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import RequireAuth from "./Components/RequireAuth";
 import Home from "./Components/Home";
+import EmailVerify from "./Components/EmailVerify";
 
 
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/' element={<Home/>} />
       </Route>
     </Routes>
+    // <EmailVerify/>
   );
 }
 

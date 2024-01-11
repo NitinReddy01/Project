@@ -17,12 +17,12 @@ app.use(cors(corsConfig));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/auth',router);
+app.use('/api/auth',router);
 app.use(verifyJWT);
-app.get('/',(req,res)=>{
-    res.send("Hoee");
-})
+app.get('/api/',(req,res)=>{
+    res.send("Home");
+});
 
 app.listen(process.env.PORT,()=>{
     console.log(`server is running on ${process.env.PORT}`);
-})
+});

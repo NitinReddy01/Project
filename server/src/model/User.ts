@@ -18,7 +18,15 @@ const userSchema=new mongoose.Schema({
         trim:true,
         unique:true
     },
-    refreshToken:String
+    refreshToken:String,
+    isVerified:{
+        type:Boolean,
+        default:false
+    },
+    verificationCode:{
+        type:String,
+        required:true
+    }
 })
 
 export const User=mongoose.model('users',userSchema);

@@ -8,4 +8,4 @@ const RequireAuth = () => {
         auth?.username ? <Outlet /> : <Navigate to='/login' state={{from:location}} replace={true}  />
     );
 }
-export default RequireAuth
+export default RequireAuth;

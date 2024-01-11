@@ -3,6 +3,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../Api/axios";
 import { useAuth } from "../Hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../Features/authSlice";
 
 interface User {
   email: string;
@@ -16,7 +18,8 @@ const defaultUser: User = {
 const Login = (): ReactElement => {
   const [user, setUser] = useState<User>(defaultUser);
   const [showPass, setShowPass] = useState<boolean>(false);
-  const { setAuth } = useAuth();
+  // const { setAuth } = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const from: string = location.state?.from?.pathname || "/";
@@ -30,23 +33,22 @@ const Login = (): ReactElement => {
     toast.promise(axios.post("/auth/login", user), {
       loading: "Processing...",
       success: (response) => {
-        setAuth({
-          username: response.data.username,
-          accessToken: response.data.accessToken,
-        });
+        // setAuth({
+        //   username: response.data.username,
+        //   accessToken: response.data.accessToken,
+        // });
+        dispatch(setAuth({username:response.data.username,accessToken:response.data.accessToken}));
         navigate(from, { replace: true });
         return "";
       },
       error: (err) => {
-        if (!err?.response) {
-          return "No response from the server";
-        } else if (err.response?.status === 400) {
-          return err.response.message;
-        } else if (err.response?.status === 401) {
-          return "Check your email or password";
-        } else {
-          return "login Failed";
+        if (!err?.response) return "No response from the server";
+        const {status,data} =err.response;
+        if(status === 400 || status === 401 || status === 403){
+          return data.message;
         }
+        return "Invalid login";
+
       },
     });
   };
@@ -73,7 +75,7 @@ const Login = (): ReactElement => {
           </div>
           <div className="text-center mt-8">
             <input
-              className="border border-black rounded-sm outline-green font-serif"
+              className="border h-8 border-black rounded-sm outline-green font-serif"
               type="email"
               name="email"
               value={user.email}
@@ -85,7 +87,7 @@ const Login = (): ReactElement => {
           <div className="text-center mt-4">
             <div style={{ position: "relative", display: "inline-block" }}>
               <input
-                className="border border-black rounded-sm outline-green font-serif"
+                className="border border-black rounded-sm outline-green font-serif h-8"
                 type={showPass ? "text" : "password"}
                 name="password"
                 value={user.password}
